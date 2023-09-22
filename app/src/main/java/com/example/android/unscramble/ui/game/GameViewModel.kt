@@ -18,7 +18,6 @@ class GameViewModel {
 
     init {
         Log.d("GameFragment", "GameViewModel created!")
-        getNextWord()
     }
 
     override fun onCleared() {
@@ -26,3 +25,5 @@ class GameViewModel {
         Log.d("GameFragment", "GameViewModel destroyed!")
     }
 }
+
+getNextWord()
