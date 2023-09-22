@@ -18,6 +18,7 @@ class GameViewModel {
 
     init {
         Log.d("GameFragment", "GameViewModel created!")
+        getNextWord()
     }
 
     override fun onCleared() {
@@ -25,6 +26,14 @@ class GameViewModel {
         Log.d("GameFragment", "GameViewModel destroyed!")
     }
 }
+/*
+* Returns true if the current word count is less than MAX_NO_OF_WORDS.
+* Updates the next word.
+*/
+fun nextWord(): Boolean {
+    return if (currentWordCount < MAX_NO_OF_WORDS) {
+        getNextWord()
+        true
+    } else false
+}
 
-getNextWord()
-        gnmnbnb
