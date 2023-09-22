@@ -44,6 +44,13 @@ class GameViewModel {
             ++currentWordCount
             wordsList.add(currentWord)
         }
+        /*
+   * Increases the game score if the player's word is correct.
+   */
+        private fun increaseScore() {
+            _score += SCORE_INCREASE
+        }
+
     }
     fun isUserWordCorrect(playerWord: String): Boolean {
         if (playerWord.equals(currentWord, true)) {
