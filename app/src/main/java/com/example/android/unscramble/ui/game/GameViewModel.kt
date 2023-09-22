@@ -27,3 +27,4 @@ class GameViewModel {
 }
 
 getNextWord()
+        gnmnbnb
