@@ -44,24 +44,26 @@ class GameViewModel {
             ++currentWordCount
             wordsList.add(currentWord)
         }
-        /*
-    * Creates and shows an AlertDialog with the final score.
-    */
-        private fun showFinalScoreDialog() {
-            MaterialAlertDialogBuilder(requireContext())
-                .setTitle(getString(R.string.congratulations))
-                .setMessage(getString(R.string.you_scored, viewModel.score))
-                .setCancelable(false)
-                .setNegativeButton(getString(R.string.exit)) { _, _ ->
-                    exitGame()
-                }
-                .setPositiveButton(getString(R.string.play_again)) { _, _ ->
-                    restartGame()
-                }
-                .show()
-
         }
     /*
+    * Updates currentWord and currentScrambledWord with the next word.
+    */
+    private fun getNextWord() {
+        currentWord = allWordsList.random()
+        val tempWord = currentWord.toCharArray()
+        tempWord.shuffle()
+
+        while (String(tempWord).equals(currentWord, false)) {
+            tempWord.shuffle()
+        }
+        if (wordsList.contains(currentWord)) {
+            getNextWord()
+        } else {
+            _currentScrambledWord = String(tempWord)
+            ++_currentWordCount
+            wordsList.add(currentWord)
+        }
+        /*
        * Increases the game score if the player's word is correct.
        */
     private fun increaseScore() {
