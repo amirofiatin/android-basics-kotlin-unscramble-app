@@ -88,6 +88,7 @@ fun nextWord(): Boolean {
         true
     } else false
 }
+    //test rifki
 
 
 
