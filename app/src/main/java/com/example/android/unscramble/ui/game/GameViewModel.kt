@@ -89,7 +89,13 @@ fun nextWord(): Boolean {
     } else false
 }
     //test rifki
-//test rifki 2
+    fun nextWord2(): Boolean {
+        return if (currentWordCount < MAX_NO_OF_WORDS) {
+            getNextWord()
+            true
+        } else false
+    }
+//2
 
 
 
