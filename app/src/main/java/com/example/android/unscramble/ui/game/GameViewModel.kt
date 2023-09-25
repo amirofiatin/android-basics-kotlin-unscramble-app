@@ -31,25 +31,6 @@ class GameViewModel {
     override fun onCleared() {
         super.onCleared()
         Log.d("GameFragment", "GameViewModel destroyed!")
-    }
-    /*
-    * Updates currentWord and currentScrambledWord with the next word.
-    */
-    private fun getNextWord() {
-        currentWord = allWordsList.random()
-        val tempWord = currentWord.toCharArray()
-        tempWord.shuffle()
-
-        while (String(tempWord).equals(currentWord, false)) {
-            tempWord.shuffle()
-        }
-        if (wordsList.contains(currentWord)) {
-            getNextWord()
-        } else {
-            _currentScrambledWord = String(tempWord)
-            ++currentWordCount
-            wordsList.add(currentWord)
-        }
         }
     /*
     * Updates currentWord and currentScrambledWord with the next word.
@@ -69,9 +50,10 @@ class GameViewModel {
             ++_currentWordCount
             wordsList.add(currentWord)
         }
+
         /*
-* Re-initializes the game data to restart the game.
-*/
+        * Re-initializes the game data to restart the game.
+        */
         fun reinitializeData() {
             _score = 0
             _currentWordCount = 0
@@ -98,19 +80,12 @@ class GameViewModel {
 * Updates the next word.
 */
 fun nextWord(): Boolean {
-    return if (currentWordCount < MAX_NO_OF_WORDS) {
+    return if (_currentWordCount < MAX_NO_OF_WORDS) {
         getNextWord()
         true
     } else false
 }
-    //test rifki
-    fun nextWord2(): Boolean {
-        return if (currentWordCount < MAX_NO_OF_WORDS) {
-            getNextWord()
-            true
-        } else false
-    }
-//2
+
 
 
 
