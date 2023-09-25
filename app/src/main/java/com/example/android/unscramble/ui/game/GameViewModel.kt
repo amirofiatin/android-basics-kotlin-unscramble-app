@@ -3,6 +3,9 @@ package com.example.android.unscramble.ui.game
 import android.util.Log
 
 
+/**
+ * ViewModel containing the app data and methods to process the data
+ */
 class GameViewModel {
     private var _score = 0
     val score: Int
@@ -29,6 +32,9 @@ class GameViewModel {
         super.onCleared()
         Log.d("GameFragment", "GameViewModel destroyed!")
     }
+    /*
+    * Updates currentWord and currentScrambledWord with the next word.
+    */
     private fun getNextWord() {
         currentWord = allWordsList.random()
         val tempWord = currentWord.toCharArray()
