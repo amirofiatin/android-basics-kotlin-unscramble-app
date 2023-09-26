@@ -3,6 +3,10 @@ package com.example.android.unscramble.ui.game
 import android.util.Log
 
 
+private fun Any.onCleared() {
+    TODO("Not yet implemented")
+}
+
 /**
  * ViewModel containing the app data and methods to process the data
  */
@@ -85,6 +89,16 @@ fun nextWord(): Boolean {
         true
     } else false
 }
+
+    fun isUserWordCorrect(playerWord: String): Boolean {
+
+    }
+
+    fun reinitializeData() {
+        TODO("Not yet implemented")
+    }
+
+
 
 
 
