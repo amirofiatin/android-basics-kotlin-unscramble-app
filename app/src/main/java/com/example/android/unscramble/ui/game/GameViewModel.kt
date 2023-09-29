@@ -19,7 +19,7 @@ class GameViewModel {
     val currentWordCount: Int
         get() = _currentWordCount
 
-    private lateinit var _currentScrambledWord: String
+    private val _currentScrambledWord = MutableLiveData<String>()
     val currentScrambledWord: String
         get() = _currentScrambledWord
 
