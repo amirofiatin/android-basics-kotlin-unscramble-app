@@ -1,9 +1,15 @@
 package com.example.android.unscramble.ui.game
 
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.TtsSpan
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
+
+private var Nothing?.value: Any
+    get() {}
 
 private fun Any.onCleared() {
     TODO("Not yet implemented")
@@ -22,8 +28,23 @@ class GameViewModel {
         get() = _currentWordCount
 
     private val _currentScrambledWord = MutableLiveData<String>()
-    val currentScrambledWord: LiveData<String>
-        get() = _currentScrambledWord
+    val currentScrambledWord: LiveData<Spannable> = Transformations.map(_currentScrambledWord) {
+        val it = null
+        if (it == null) {
+            SpannableString("")
+        } else {
+            val it = null
+            val scrambledWord = it.toString()
+            val spannable: Spannable = SpannableString(scrambledWord)
+            spannable.setSpan(
+                TtsSpan.VerbatimBuilder(scrambledWord).build(),
+                0,
+                scrambledWord.length,
+                Spannable.SPAN_INCLUSIVE_INCLUSIVE
+            )
+            spannable
+        }
+    }
 
     // List of words used in the game
     private var wordsList: MutableList<String> = mutableListOf()
@@ -80,7 +101,11 @@ class GameViewModel {
             _score.value = (_score.value)?.plus(SCORE_INCREASE)
         }
 
-    fun isUserWordCorrect(playerWord: String): Boolean {
+private fun Any.plus(scoreIncrease: Int): Any {
+    TODO("Not yet implemented")
+}
+
+fun isUserWordCorrect(playerWord: String): Boolean {
         if (playerWord.equals(currentWord, true)) {
             increaseScore()
             return true
@@ -88,19 +113,24 @@ class GameViewModel {
         return false
     }
 
-}
+
 /*
 * Returns true if the current word count is less than MAX_NO_OF_WORDS.
 * Updates the next word.
 */
 fun nextWord(): Boolean {
+    val _currentWordCount = null
     return if (_currentWordCount.value!! < MAX_NO_OF_WORDS) {
         getNextWord()
         true
     } else false
 }
 
-    fun String.isUserWordCorrect(): Boolean {
+fun getNextWord() {
+    TODO("Not yet implemented")
+}
+
+fun String.isUserWordCorrect(): Boolean {
 
     }
 
