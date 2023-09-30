@@ -17,10 +17,12 @@
 package com.example.android.unscramble.ui.game
 
 import android.os.Bundle
+import android.provider.Settings.Global.getString
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -108,14 +110,16 @@ class GameFragment : Fragment() {
     /*
      * Gets a random word for the list of words and shuffles the letters in it.
      */
-    private fun getNextScrambledWord(): String {
-        val tempWord = allWordsList.random().toCharArray()
-        tempWord.shuffle()
-        return String(tempWord)
+   // private fun getNextScrambledWord(): String {
+     //   val tempWord = allWordsList.random().toCharArray()
+       // tempWord.shuffle()
+       // return String(tempWord)
     }
-    /*
-    * Creates and shows an AlertDialog with the final score.
-    */
+
+
+/*
+* Creates and shows an AlertDialog with the final score.
+*/
     private fun showFinalScoreDialog() {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.congratulations))
@@ -130,13 +134,24 @@ class GameFragment : Fragment() {
             .show()
     }
 
-    /*
-     * Re-initializes the data in the ViewModel and updates the views with the new data, to
-     * restart the game.
-     */
+fun getString(playAgain: Int): String? {
+    TODO("Not yet implemented")
+}
+
+fun getString(youScored: Int, score: String?): String? {
+
+
+}
+
+/*
+ * Re-initializes the data in the ViewModel and updates the views with the new data, to
+ * restart the game.
+ */
     private fun restartGame() {
-        viewModel.reinitializeData()
-        setErrorTextField(false)
+    val viewModel = null.apply {
+        reinitializeData()
+    }
+    setErrorTextField(false)
         updateNextWordOnScreen()
     }
 
@@ -144,18 +159,21 @@ class GameFragment : Fragment() {
      * Exits the game.
      */
     private fun exitGame() {
+        val activity = null
         activity?.finish()
     }
-    override fun onDetach() {
-        super.onDetach()
-        Log.d("GameFragment", "GameFragment destroyed!")
-    }
 
-    /*
-    * Sets and resets the text field error status.
-    */
+private fun Nothing?.finish() {
+    TODO("Not yet implemented")
+}
+
+/*
+* Sets and resets the text field error status.
+*/
     private fun setErrorTextField(error: Boolean) {
         if (error) {
+            val binding =
+            val binding =
             binding.textField.isErrorEnabled = true
             binding.textField.error = getString(R.string.try_again)
         } else {
@@ -168,6 +186,8 @@ class GameFragment : Fragment() {
      * Displays the next scrambled word on screen.
      */
     private fun updateNextWordOnScreen() {
+        val viewModel = null
+        val binding = null
         binding.textViewUnscrambledWord.text = viewModel.currentScrambledWord
     }
     }
