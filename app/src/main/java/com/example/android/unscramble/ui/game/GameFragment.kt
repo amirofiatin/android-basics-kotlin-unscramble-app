@@ -46,38 +46,48 @@ class GameFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View {
         // Inflate the layout XML file and return a binding object instance
-        binding = GameFragmentBinding.inflate(inflater, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.game_fragment, container, false)
         Log.d("GameFragment", "GameFragment created/re-created!")
         Log.d("GameFragment", "Word: ${viewModel.currentScrambledWord} " +
                 "Score: ${viewModel.score} WordCount: ${viewModel.currentWordCount}")
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // Setup a click listener for the Submit and Skip buttons.
+        binding.gameViewModel = viewModel
+
+        binding.maxNoOfWords = MAX_NO_OF_WORDS
+        binding.lifecycleOwner = viewLifecycleOwner
+        // Setup a click listener for the Submit and Skip buttons.
         binding.submit.setOnClickListener { onSubmitWord() }
         binding.skip.setOnClickListener { onSkipWord() }
         // Update the UI
-        updateNextWordOnScreen()
-        binding.score.text = getString(R.string.score, 0)
-        binding.wordCount.text = getString(
-                R.string.word_count, 0, MAX_NO_OF_WORDS)
+        viewModel.score.observe(viewLifecycleOwner,
+            { newScore ->
+                binding.score.text = getString(R.string.score, newScore)
+            })
+        viewModel.currentWordCount.observe(viewLifecycleOwner,
+            { newWordCount ->
+                binding.wordCount.text =
+                    getString(R.string.word_count, newWordCount, MAX_NO_OF_WORDS)
+            })
     }
 
     /*
     * Checks the user's word, and updates the score accordingly.
     * Displays the next scrambled word.
+    * After the last word, the user is shown a Dialog with the final score.
     */
     private fun onSubmitWord() {
         val playerWord = binding.textInputEditText.text.toString()
 
         if (viewModel.isUserWordCorrect(playerWord)) {
             setErrorTextField(false)
-            if (viewModel.nextWord()) {
-                updateNextWordOnScreen()
+            if (!viewModel.nextWord()) {
+                showFinalScoreDialog()
             } else {
                 showFinalScoreDialog()
             }
@@ -88,7 +98,6 @@ class GameFragment : Fragment() {
 
     /*
      * Skips the current word without changing the score.
-     * Increases the word count.
      */
     private fun onSkipWord() {
         if (viewModel.nextWord()) {
