@@ -1,6 +1,8 @@
 package com.example.android.unscramble.ui.game
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 
 
 private fun Any.onCleared() {
@@ -65,11 +67,16 @@ class GameViewModel {
             wordsList.clear()
             getNextWord()
         }
+
+    fun isUserWordCorrect(playerWord: String): Boolean {
+
     }
+}
         /*
        * Increases the game score if the player's word is correct.
        */
         private fun increaseScore() {
+            val _score = null
             _score.value = (_score.value)?.plus(SCORE_INCREASE)
         }
 
@@ -93,7 +100,7 @@ fun nextWord(): Boolean {
     } else false
 }
 
-    fun isUserWordCorrect(playerWord: String): Boolean {
+    fun String.isUserWordCorrect(): Boolean {
 
     }
 
